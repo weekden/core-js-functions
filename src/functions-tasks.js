@@ -115,8 +115,15 @@ function getPolynom(...integers) {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  let isFirstrun = true;
+  let result;
+  return function randomizer() {
+    if (!isFirstrun) return result;
+    isFirstrun = false;
+    result = func();
+    return result;
+  };
 }
 
 /**
@@ -178,8 +185,8 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return (...args2) => fn(...args1, ...args2);
 }
 
 /**
